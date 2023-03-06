@@ -59,7 +59,7 @@ To automate the process of converting documents into Machine readable format we 
 
 Python Libraries for the Document AI
 There are python libraries provided by GCP for developers.
-Link to the Github Repository - 
+Link to the Github Repository - git@github.com:Cloud-Evonence/GCP-DocumentAI.git
 
 
 
