@@ -13,7 +13,7 @@ def process_document_ocr_sample(
     mime_type: str,
     enable_native_pdf_parsing: bool,
 ) -> None:
-    # Online processing request to Document AI
+    #  Processing request to Document AI
     document = process_document(
         project_id,
         location,
@@ -23,9 +23,6 @@ def process_document_ocr_sample(
         mime_type,
         enable_native_pdf_parsing,
     )
-
-    # For a full list of Document object attributes, please reference this page:
-    # https://cloud.google.com/python/docs/reference/documentai/latest/google.cloud.documentai_v1.types.Document
 
     text = document.text
     print(f"Full document text: {text}\n")
@@ -40,7 +37,6 @@ def process_document_ocr_sample(
         print_lines(page.lines, text)
         print_tokens(page.tokens, text)
 
-        # Currently supported in version pretrained-ocr-v1.1-2022-09-12
         if page.image_quality_scores:
             print_image_quality_scores(page.image_quality_scores)
 
@@ -54,40 +50,24 @@ def process_document(
     mime_type: str,
     enable_native_pdf_parsing: bool,
 ) -> documentai.Document:
-    # You must set the api_endpoint if you use a location other than 'us'.
     opts = ClientOptions(api_endpoint=f"{location}-documentai.googleapis.com")
-
     client = documentai.DocumentProcessorServiceClient(client_options=opts)
-
-    # The full resource name of the processor version
-    # e.g. projects/{project_id}/locations/{location}/processors/{processor_id}/processorVersions/{processor_version_id}
-    # You must create processors before running sample code.
     name = client.processor_version_path(
         project_id, location, processor_id, processor_version
     )
-
-    # Read the file into memory
     with open(file_path, "rb") as image:
         image_content = image.read()
-
-    # Load Binary Data into Document AI RawDocument Object
     raw_document = documentai.RawDocument(content=image_content, mime_type=mime_type)
-
     process_options = documentai.ProcessOptions(
         ocr_config=documentai.OcrConfig(
             enable_native_pdf_parsing=enable_native_pdf_parsing
         )
     )
-
-    # Configure the process request
     request = documentai.ProcessRequest(
         name=name, raw_document=raw_document, process_options=process_options
     )
-
     result = client.process_document(request=request)
-
     return result.document
-
 
 def print_page_dimensions(dimension: documentai.Document.Page.Dimension) -> None:
     print(f"    Width: {str(dimension.width)}")
@@ -152,14 +132,8 @@ def print_image_quality_scores(
 
 
 def layout_to_text(layout: documentai.Document.Page.Layout, text: str) -> str:
-    """
-    Document AI identifies text in different parts of the document by their
-    offsets in the entirety of the document's text. This function converts
-    offsets to a string.
-    """
     response = ""
-    # If a text segment spans several lines, it will
-    # be stored in different text segments.
+
     for segment in layout.text_anchor.text_segments:
         start_index = int(segment.start_index)
         end_index = int(segment.end_index)
@@ -167,13 +141,13 @@ def layout_to_text(layout: documentai.Document.Page.Layout, text: str) -> str:
     return response
 
 
-# TODO(developer): Edit these variables before running the sample.
+# Edit these variables before running the sample.
 project_id = "<enter your project id>"
 location = "selecr region"  # Format is 'us' or 'eu'
 processor_id = "enter ID"  # Create processor before running sample
 processor_version = "enter processor version"
 file_path = "path of the file"
-mime_type = "application/pdf"  # Refer to https://cloud.google.com/document-ai/docs/file-types for supported file types
+mime_type = "application/pdf"  
 enable_native_pdf_parsing = True
 
 process_document_ocr_sample(
