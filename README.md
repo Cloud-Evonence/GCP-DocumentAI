@@ -59,10 +59,6 @@ There are sample Python codes to achieve this provided by GCP
 ![alt text](https://github.com/Cloud-Evonence/GCP-DocumentAI/blob/main/images/flowv.png)
 To automate the process of converting documents into Machine readable format we can use GCP tools and create a pipeline. As seen in this architecture we have used Cloud storage bucket as storage option which will store the input document file as well as processed output word / csv format files at the end of the process. Using cloud function we can create an automated trigger which will get activated every time there is new object is dropped in the cloud storage bucket and send the new document object into the correct Document AI processor 
 
-Python Libraries for the Document AI
-There are python libraries provided by GCP for developers.
-Link to the Github Repository - git@github.com:Cloud-Evonence/GCP-DocumentAI.git
-
 
 
 
