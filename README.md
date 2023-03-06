@@ -22,7 +22,7 @@ Store, search, organize, govern, and analyze documents and metada
 
 
 
-#How Document AI Works?
+## How Document AI Works?
 Processor is a key component of Document AI processor that acts as an interface between the document file and a machine learning model that performs document processing actions. They can be used to classify, split, parse or analyze a document.
 
 Each Google Cloud project needs to create its own processor instances.
@@ -36,7 +36,7 @@ Lending - Documents used for mortgage loans
 Contract - Extract and understand entities from business contracts
 Custom - User-created processors for custom documents and use case
 
-#Workflow of Document AI
+## Workflow of Document AI
 Here are the major steps to use Document AI to start processing documents:
 Choose a processor that is suitable for your use case.
 Create a processor using the Cloud console or the Document AI API.
@@ -44,18 +44,18 @@ Document AI creates a prediction endpoint where you can send your documents.
 Send your document(s) for processing.
 Document AI processes the document(s) and returns one or more Document objects, which contain the extracted, structured information.
 
-#Which processor should I use?
+## Which processor should I use?
 To decide what processor type to use for a specific application, here are some general guidelines:
 ![alt text](https://github.com/Cloud-Evonence/GCP-DocumentAI/blob/main/images/docuai.png)
 
-#Batch Processing
+## Batch Processing
 The document AI can process only the input file which has 10 pages or size 20 MBs 
 To overcome this limitation there is method called Batch Processing 
 The only difference between batch processing and process Document is that instead of sending a single request for a single document, batch processing will send all your documents in a single request. The response will then be stored in a GCS bucket that you have defined on the batch process options.
 Using the Batch processing pipeline approach it becomes easy and possible to process larger documents with Document AI
 There are sample Python codes to achieve this provided by GCP 
 
-#Sample Architecture
+## Sample Architecture
 ![alt text](https://github.com/Cloud-Evonence/GCP-DocumentAI/blob/main/images/flowv.png)
 To automate the process of converting documents into Machine readable format we can use GCP tools and create a pipeline. As seen in this architecture we have used Cloud storage bucket as storage option which will store the input document file as well as processed output word / csv format files at the end of the process. Using cloud function we can create an automated trigger which will get activated every time there is new object is dropped in the cloud storage bucket and send the new document object into the correct Document AI processor 
 
